@@ -22,7 +22,7 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_20">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
