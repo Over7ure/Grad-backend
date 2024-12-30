@@ -8,4 +8,8 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 	List<User> findAll();
+
+	List<User> selectPage(Integer pageNum, Integer pageSize, String username);
+
+	Integer selectTotal(String username);
 }

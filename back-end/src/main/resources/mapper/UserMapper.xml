@@ -18,5 +18,12 @@
     <select id="findAll" resultMap="UserResultMap">
         SELECT * FROM user
     </select>
+    
+    <select id="selectPage" resultMap="UserResultMap">
+            SELECT * FROM user WHERE username LIKE #{username} LIMIT #{pageNum}, #{pageSize}
+    </select>
 
+    <select id="selectTotal" resultType="Integer">
+        SELECT COUNT(*) FROM user WHERE username LIKE concat('%', #{username}, '%')
+    </select>
 </mapper>

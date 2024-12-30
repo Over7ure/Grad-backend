@@ -2,7 +2,10 @@ package com.wcw.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 @SpringBootApplication
 public class BackEndApplication {
 
@@ -10,4 +13,8 @@ public class BackEndApplication {
 		SpringApplication.run(BackEndApplication.class, args);
 	}
 
+	@GetMapping("/")
+	public String index() {
+		return "<h1 style=\"text-align: center;\">Hello! This is the index page.</h1>";
+	}
 }
