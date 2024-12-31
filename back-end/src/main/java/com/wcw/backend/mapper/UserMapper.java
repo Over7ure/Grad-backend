@@ -12,4 +12,6 @@ public interface UserMapper {
 	List<User> selectPage(Integer pageNum, Integer pageSize, String username);
 
 	Integer selectTotal(String username);
+
+	User findByUsername(String username);
 }

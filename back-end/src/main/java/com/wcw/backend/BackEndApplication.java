@@ -15,6 +15,6 @@ public class BackEndApplication {
 
 	@GetMapping("/")
 	public String index() {
-		return "<h1 style=\"text-align: center;\">Hello! This is the index page.</h1>";
+		return "<h1 style=\"text-align: center;\">Hello! This is the index page of back-end.</h1>";
 	}
 }
