@@ -1,5 +1,6 @@
 package com.wcw.backend.controller;
 
+import com.wcw.backend.result.Result;
 import com.wcw.backend.service.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,7 @@ public class LoginController {
 	private ILoginService loginService;
 
 	@PostMapping("/login")
-	public boolean Login(@RequestParam String username, @RequestParam String password) {
-		return loginService.validateUser(username, password);
+	public Result Login(@RequestParam String username, @RequestParam String password) {
+		return loginService.validateUser(username, password) ? new Result(200, "Login successful") : new Result(400, "Login failed");
 	}
 }
