@@ -1,12 +1,12 @@
 package com.wcw.backend.service;
 
-import com.wcw.backend.entity.User;
+import com.wcw.backend.entity.UserInfo;
 
 import java.util.List;
 import java.util.Map;
 
 public interface IUserService {
-	List<User> findAll();
+	List<UserInfo> findAll();
 
 	Map<String, Object> findPage(Integer pageNum, Integer pageSize, String username);
 }

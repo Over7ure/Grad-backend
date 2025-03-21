@@ -5,12 +5,13 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class User {
-	private Integer id;
+public class UserInfo {
+	private Integer uid;
 	private String username;
 	private String password;
+	private Integer fileNum;
+	private Integer role;
 	private String email;
-	private String address;
-	private Date createTime;
-	private String role;
+	private Integer isDisable;
+	private Date createDate;
 }

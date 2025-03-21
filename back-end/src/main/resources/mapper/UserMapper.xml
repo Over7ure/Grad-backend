@@ -5,37 +5,43 @@
 
 <mapper namespace="com.wcw.backend.mapper.UserMapper">
 
-	<resultMap id="UserResultMap" type="com.wcw.backend.entity.User">
-		<id property="id" column="id"/>
+	<resultMap id="UserResultMap" type="com.wcw.backend.entity.UserInfo">
+		<id property="uid" column="uid"/>
 		<result property="username" column="username"/>
 		<result property="password" column="password"/>
-		<result property="email" column="email"/>
-		<result property="address" column="address"/>
-		<result property="createTime" column="create_time"/>
+		<result property="fileNum" column="file_num"/>
 		<result property="role" column="role"/>
+		<result property="email" column="email"/>
+		<result property="isDisable" column="is_disable"/>
+		<result property="createDate" column="create_date"/>
 	</resultMap>
 
 	<select id="findAll" resultMap="UserResultMap">
 		SELECT *
-		FROM user
+		FROM user_info
 	</select>
 
 	<select id="selectPage" resultMap="UserResultMap">
 		SELECT *
-		FROM user
+		FROM user_info
 		WHERE username LIKE #{username}
 		LIMIT #{pageNum}, #{pageSize}
 	</select>
 
 	<select id="selectTotal" resultType="Integer">
 		SELECT COUNT(*)
-		FROM user
+		FROM user_info
 		WHERE username LIKE concat('%', #{username}, '%')
 	</select>
 
 	<select id="findByUsername" resultMap="UserResultMap">
 		SELECT *
-		FROM user
-		WHERE username = #{username}
+		FROM user_info
+		WHERE BINARY username = #{username}
 	</select>
+
+	<insert id="save" parameterType="com.wcw.backend.entity.UserInfo">
+		INSERT INTO user_info (username, password, email)
+		VALUES (#{username}, #{password}, #{email})
+	</insert>
 </mapper>

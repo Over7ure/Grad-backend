@@ -1,6 +1,6 @@
 package com.wcw.backend.controller;
 
-import com.wcw.backend.entity.User;
+import com.wcw.backend.entity.UserInfo;
 import com.wcw.backend.service.IMessageService;
 import com.wcw.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class MessageController {
 
 	@PostMapping("/cacheUserData")
 	public void cacheUserData() {
-		List<User> users = userService.findAll();
+		List<UserInfo> users = userService.findAll();
 		messageService.saveToRedis("userList", users);
 	}
 }

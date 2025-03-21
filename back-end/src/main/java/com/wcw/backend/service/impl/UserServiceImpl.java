@@ -1,6 +1,6 @@
 package com.wcw.backend.service.impl;
 
-import com.wcw.backend.entity.User;
+import com.wcw.backend.entity.UserInfo;
 import com.wcw.backend.mapper.UserMapper;
 import com.wcw.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class UserServiceImpl implements IUserService {
 	private UserMapper userMapper;
 
 	@Override
-	public List<User> findAll() {
+	public List<UserInfo> findAll() {
 		return userMapper.findAll();
 	}
 
@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
 	public Map<String, Object> findPage(Integer pageNum, Integer pageSize, String username) {
 		pageNum = (pageNum - 1) * pageSize;
 		username = "%" + username + "%";
-		List<User> list = userMapper.selectPage(pageNum, pageSize, username);
+		List<UserInfo> list = userMapper.selectPage(pageNum, pageSize, username);
 		Integer count = userMapper.selectTotal(username);
 		Map<String, Object> res = new HashMap<>();
 		res.put("data", list);

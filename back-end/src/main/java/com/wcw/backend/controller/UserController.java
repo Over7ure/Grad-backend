@@ -1,6 +1,6 @@
 package com.wcw.backend.controller;
 
-import com.wcw.backend.entity.User;
+import com.wcw.backend.entity.UserInfo;
 import com.wcw.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class UserController {
 	private IUserService userService;
 
 	@GetMapping("/findAll")
-	public List<User> findAll() {
+	public List<UserInfo> findAll() {
 		return userService.findAll();
 	}
 

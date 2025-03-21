@@ -16,6 +16,15 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public Result Login(@RequestParam String username, @RequestParam String password) {
-		return loginService.validateUser(username, password) ? new Result(200, "Login successful") : new Result(400, "Login failed");
+		int result = loginService.validateUser(username, password);
+		if (result == 0) {
+			return new Result(200, "Login successful");
+		} else if (result == 1) {
+			return new Result(401, "Password error");
+		} else if (result == 2) {
+			return new Result(402, "User is disabled");
+		} else {
+			return new Result(403, "User not found");
+		}
 	}
 }
