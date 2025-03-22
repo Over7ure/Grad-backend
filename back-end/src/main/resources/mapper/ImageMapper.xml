@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 图片相关SQL映射配置 -->
+<mapper namespace="com.wcw.backend.mapper.ImageMapper">
+
+	<!-- 图片结果映射 -->
+	<resultMap id="ImageResultMap" type="com.wcw.backend.entity.OriginalPic">
+		<id property="picId" column="pic_id"/>
+		<result property="picName" column="pic_name"/>
+		<result property="picUrl" column="pic_url"/>
+		<result property="uploadDate" column="upload_date"/>
+	</resultMap>
+
+	<!-- 保存图片信息 -->
+	<insert id="save" parameterType="com.wcw.backend.entity.OriginalPic">
+		INSERT INTO original_pic (pic_name, pic_url)
+		VALUES (#{picName}, #{picUrl})
+	</insert>
+
+	<!-- 查询所有图片 -->
+	<select id="findAll" resultMap="ImageResultMap">
+		SELECT *
+		FROM original_pic
+	</select>
+
+	<!-- 分页查询图片 -->
+	<select id="selectPage" resultMap="ImageResultMap">
+		SELECT *
+		FROM original_pic
+		WHERE pic_name LIKE #{picName} 
+		LIMIT #{pageNum}, #{pageSize}
+	</select>
+
+	<!-- 查询符合条件的图片总数 -->
+	<select id="selectTotal" resultType="Integer">
+		SELECT COUNT(*)
+		FROM original_pic
+		WHERE pic_name LIKE #{picName}
+	</select>
+
+	<!-- 根据ID删除图片 -->
+	<delete id="deleteById" parameterType="Integer">
+		DELETE FROM original_pic
+		WHERE pic_id = #{picId}
+	</delete>
+
+	<!-- 根据ID查找图片 -->
+	<select id="findById" resultMap="ImageResultMap">
+		SELECT *
+		FROM original_pic
+		WHERE pic_id = #{picId}
+	</select>
+</mapper>
