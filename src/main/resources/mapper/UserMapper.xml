@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 用户相关SQL映射配置 -->
+<mapper namespace="com.wcw.backend.mapper.UserMapper">
+
+	<!-- 用户结果映射 -->
+	<resultMap id="UserResultMap" type="com.wcw.backend.entity.UserInfo">
+		<id property="uid" column="uid"/>
+		<result property="username" column="username"/>
+		<result property="password" column="password"/>
+		<result property="role" column="role"/>
+		<result property="email" column="email"/>
+		<result property="isDisable" column="is_disable"/>
+		<result property="createDate" column="create_date"/>
+	</resultMap>
+
+	<!-- 查询所有用户 -->
+	<select id="findAll" resultMap="UserResultMap">
+		SELECT *
+		FROM user_info
+	</select>
+
+	<!-- 分页查询用户 -->
+	<select id="selectPage" resultMap="UserResultMap">
+		SELECT *
+		FROM user_info
+		WHERE username LIKE #{username} 
+		LIMIT #{pageNum}, #{pageSize}
+	</select>
+
+	<!-- 查询符合条件的用户总数 -->
+	<select id="selectTotal" resultType="Integer">
+		SELECT COUNT(*)
+		FROM user_info
+		WHERE username LIKE concat('%', #{username}, '%')
+	</select>
+
+	<!-- 根据用户名精确查找用户 -->
+	<select id="findByUsername" resultMap="UserResultMap">
+		SELECT *
+		FROM user_info
+		WHERE BINARY username = #{username}
+	</select>
+
+	<!-- 保存用户信息 -->
+	<insert id="save" parameterType="com.wcw.backend.entity.UserInfo">
+		INSERT INTO user_info (username, password, email)
+		VALUES (#{username}, #{password}, #{email})
+	</insert>
+</mapper>
