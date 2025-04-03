@@ -45,6 +45,14 @@ public class ValidationServiceImpl implements IValidationService {
 	 */
 	@Override
 	public boolean registerUser(String email, String username, String password) {
+		if(email == null || username == null || password == null) {
+			return false; // 输入参数不能为空
+		}
+
+		if(email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+			return false; // 输入参数不能为空
+		}
+
 		UserInfo existingUser = userMapper.findByUsername(username);
 		if (existingUser != null) {
 			return false; // 用户已存在

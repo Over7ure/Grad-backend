@@ -2,26 +2,19 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<!-- 图片相关SQL映射配置 -->
+<!-- 生产历史数据SQL映射配置 -->
 <mapper namespace="com.wcw.backend.mapper.ProdHistoryMapper">
-
-	<!-- 图片结果映射 -->
+	<!-- 生产历史数据结果映射 -->
 	<resultMap id="ProdHistoryMap" type="com.wcw.backend.entity.ProdHistoryData">
 		<id property="prodDate" column="prod_date"/>
-		<result property="prodNum" column="pic_name"/>
-		<result property="curDefectNum" column="cur_defect_num"/>
-		<result property="curYieldRate" column="cur_yield_rate"/>
-		<result property="totalNum" column="total_num"/>
+		<result property="prodNum" column="prod_num"/>
 		<result property="defectNum" column="defect_num"/>
-		<result property="yieldRate" column="yield_rate"/>
 		<result property="pinNum" column="pin_num"/>
 		<result property="bubbleNum" column="bubble_num"/>
 		<result property="scratchNum" column="scratch_num"/>
 		<result property="tinAshNum" column="tin_ash_num"/>
 	</resultMap>
-
-	<!-- 查询所有图片 -->
+	<!-- 查询所有生产历史数据 -->
 	<select id="findAll" resultMap="ProdHistoryMap">
 		SELECT *
 		FROM prod_history_data

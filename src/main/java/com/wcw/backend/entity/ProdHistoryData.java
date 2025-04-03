@@ -10,18 +10,10 @@ import lombok.Data;
 public class ProdHistoryData {
 	// 生产日期
 	private String prodDate;
-	// 当日生产数量
+	// 生产数量
 	private Integer prodNum;
-	// 当日缺陷数量
-	private Integer curDefectNum;
-	// 当日良率
-	private Float curYieldRate;
-	// 累计生产总数
-	private Integer totalNum;
-	// 累计缺陷总数
+	// 缺陷数量
 	private Integer defectNum;
-	// 累计良率
-	private Float yieldRate;
 	// 针孔缺陷数量
 	private Integer pinNum;
 	// 气泡缺陷数量
