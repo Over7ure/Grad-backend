@@ -57,6 +57,11 @@
 			<version>${lombok.version}</version>
 			<optional>true</optional> <!-- 仅在编译时使用，不会被打包 -->
 		</dependency>
+		<dependency>
+			<groupId>com.github.junrar</groupId>
+			<artifactId>junrar</artifactId>
+			<version>7.5.4</version>
+		</dependency>
 		
 		<!-- 测试依赖 -->
 		<dependency>

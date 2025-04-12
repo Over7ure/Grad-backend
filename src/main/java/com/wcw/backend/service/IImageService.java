@@ -1,6 +1,7 @@
 package com.wcw.backend.service;
 
 import com.wcw.backend.entity.OriginalPic;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -39,4 +40,12 @@ public interface IImageService {
 	 * @return 删除是否成功
 	 */
 	boolean deleteById(Integer picId);
+
+	/**
+	 * 处理上传的压缩包
+	 * @param file 上传的压缩包文件
+	 * @return 包含处理成功和失败数量的Map
+	 * @throws Exception 处理过程中的异常
+	 */
+	Map<String, Object> processArchive(MultipartFile file) throws Exception;
 }

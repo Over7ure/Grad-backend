@@ -5,6 +5,7 @@ import com.wcw.backend.result.Result;
 import com.wcw.backend.service.IImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -76,5 +77,42 @@ public class ImageController {
 		return imageService.deleteById(picId)
 				? new Result(200, "Image deleted successfully")
 				: new Result(500, "Failed to delete image");
+	}
+
+	/**
+	 * 上传压缩包并处理其中的图片
+	 *
+	 * @param file 压缩包文件(zip或rar格式)
+	 * @return 操作结果
+	 */
+	@PostMapping("/uploadArchive")
+	public Result uploadArchive(@RequestParam("file") MultipartFile file) {
+		if (file == null || file.isEmpty()) {
+			return new Result(400, "压缩包文件不能为空");
+		}
+
+		// 获取原始文件名
+		String originalFilename = file.getOriginalFilename();
+		if (originalFilename == null || (!originalFilename.endsWith(".zip") && !originalFilename.endsWith(".rar"))) {
+			return new Result(400, "只支持ZIP和RAR格式的压缩包");
+		}
+
+		try {
+			// 调用service层方法处理压缩包
+			Map<String, Object> result = imageService.processArchive(file);
+			int successCount = (int) result.get("success");
+			int failedCount = (int) result.get("failed");
+
+			// 根据处理结果返回不同的消息
+			if (failedCount == 0) {
+				return new Result(200, "成功从压缩包中提取并上传了" + successCount + "张图片");
+			} else if (successCount > 0) {
+				return new Result(200, "成功上传" + successCount + "张图片，" + failedCount + "张图片处理失败");
+			} else {
+				return new Result(500, "无法从压缩包中提取任何图片");
+			}
+		} catch (Exception e) {
+			return new Result(500, "处理压缩包时发生错误: " + e.getMessage());
+		}
 	}
 }
