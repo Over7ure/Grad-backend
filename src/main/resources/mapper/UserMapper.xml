@@ -47,7 +47,7 @@
 
 	<!-- 保存用户信息 -->
 	<insert id="save" parameterType="com.wcw.backend.entity.UserInfo">
-		INSERT INTO user_info (username, password, email)
-		VALUES (#{username}, #{password}, #{email})
+		INSERT INTO user_info (uid, username, password, email)
+		VALUES (#{uid}, #{username}, #{password}, #{email})
 	</insert>
 </mapper>
