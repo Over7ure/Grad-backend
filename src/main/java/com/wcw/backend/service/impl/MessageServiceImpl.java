@@ -5,6 +5,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 消息服务实现类
@@ -45,5 +46,25 @@ public class MessageServiceImpl implements IMessageService {
 	@Override
 	public Object getFromRedis(String key) {
 		return redisTemplate.opsForValue().get(key);
+	}
+	
+	/**
+	 * 将数据保存到Redis并设置过期时间
+	 * @param key Redis的键
+	 * @param value 要保存的值 
+	 * @param expirationSeconds 过期时间（秒）
+	 */
+	@Override
+	public void saveToRedis(String key, Object value, long expirationSeconds) {
+		redisTemplate.opsForValue().set(key, value, expirationSeconds, TimeUnit.SECONDS);
+	}
+	
+	/**
+	 * 删除Redis中的键值对
+	 * @param key Redis的键
+	 */
+	@Override
+	public void deleteFromRedis(String key) {
+		redisTemplate.delete(key);
 	}
 }

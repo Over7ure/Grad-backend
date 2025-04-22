@@ -26,6 +26,7 @@ public class CorsConfig {
 		corsConfiguration.addAllowedOrigin("http://localhost:8080"); // 仅允许本地前端访问
 		corsConfiguration.addAllowedHeader("*");                     // 允许所有请求头
 		corsConfiguration.addAllowedMethod("*");                     // 允许所有HTTP方法
+		corsConfiguration.setAllowCredentials(true);                 // 允许携带cookie和认证信息
 		corsConfiguration.setMaxAge(MAX_AGE);                        // 设置预检请求的缓存时间
 		source.registerCorsConfiguration("/**", corsConfiguration);  // 对所有路径应用此配置
 		return new CorsFilter(source);

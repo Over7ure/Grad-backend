@@ -52,14 +52,4 @@ public class MessageController {
 	public Object getFromRedis(@RequestParam String key) {
 		return messageService.getFromRedis(key);
 	}
-
-	/**
-	 * 缓存用户数据到Redis
-	 * 将所有用户数据保存到Redis的userList键
-	 */
-	@PostMapping("/cacheUserData")
-	public void cacheUserData() {
-		List<UserInfo> users = userService.findAll();
-		messageService.saveToRedis("userList", users);
-	}
 }

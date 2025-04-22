@@ -24,4 +24,18 @@ public interface IMessageService {
 	 * @return 存储在Redis中的值
 	 */
 	Object getFromRedis(String key);
+	
+	/**
+	 * 将数据保存到Redis并设置过期时间
+	 * @param key Redis的键
+	 * @param value 要保存的值
+	 * @param expirationSeconds 过期时间（秒）
+	 */
+	void saveToRedis(String key, Object value, long expirationSeconds);
+	
+	/**
+	 * 删除Redis中的键值对
+	 * @param key Redis的键
+	 */
+	void deleteFromRedis(String key);
 }

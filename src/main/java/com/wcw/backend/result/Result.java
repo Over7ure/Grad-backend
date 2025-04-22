@@ -10,7 +10,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@AllArgsConstructor
 public class Result {
 	/**
 	 * 响应状态码
@@ -21,4 +20,21 @@ public class Result {
 	 * 响应消息
 	 */
 	private String message;
+	
+	/**
+	 * 可选data字段
+	 */
+	private Object data;
+
+	public Result(int code, String message) {
+		this.code = code;
+		this.message = message;
+		this.data = null;
+	}
+
+	public Result(int code, String message, Object data) {
+		this.code = code;
+		this.message = message;
+		this.data = data;
+	}
 }
