@@ -1,34 +1,28 @@
 package com.wcw.backend.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.time.Duration;
 
 /**
  * CORS配置类，用于处理跨域资源共享
  */
 @Configuration
-public class CorsConfig {
-	// 设置CORS预检请求的有效期为24小时，减少预检请求次数
-	private static final long MAX_AGE = 24 * 60 * 60;
+public class CorsConfig implements WebMvcConfigurer {
+	// 设置CORS预检请求的有效期为24小时，使用Duration类型
+	private static final Duration MAX_AGE = Duration.ofHours(24);
 
-	/**
-	 * 创建CorsFilter Bean，配置CORS策略
-	 * 
-	 * @return 配置好的CorsFilter实例
-	 */
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.addAllowedOrigin("http://localhost:8080"); // 仅允许本地前端访问
-		corsConfiguration.addAllowedHeader("*");                     // 允许所有请求头
-		corsConfiguration.addAllowedMethod("*");                     // 允许所有HTTP方法
-		corsConfiguration.setAllowCredentials(true);                 // 允许携带cookie和认证信息
-		corsConfiguration.setMaxAge(MAX_AGE);                        // 设置预检请求的缓存时间
-		source.registerCorsConfiguration("/**", corsConfiguration);  // 对所有路径应用此配置
-		return new CorsFilter(source);
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**")
+				.allowedOriginPatterns("http://localhost:8080") // 只允许前端本地地址访问
+				.allowedHeaders("*")         // 允许所有Header
+				.allowedMethods("*")         // 允许所有Method
+				.allowCredentials(true)      // 允许携带cookie和认证信息
+				.maxAge(MAX_AGE.getSeconds()); // 设置预检请求的缓存时间（秒）
 	}
 }
+
+

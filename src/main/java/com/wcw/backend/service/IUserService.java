@@ -12,13 +12,15 @@ import java.util.Map;
 public interface IUserService {
 	/**
 	 * 查询所有用户
+	 *
 	 * @return 用户列表
 	 */
 	List<UserInfo> findAll();
 
 	/**
 	 * 分页查询用户
-	 * @param pageNum 页码
+	 *
+	 * @param pageNum  页码
 	 * @param pageSize 每页数量
 	 * @param username 用户名（模糊查询）
 	 * @return 包含数据和总数的Map

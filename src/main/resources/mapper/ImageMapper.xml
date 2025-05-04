@@ -30,8 +30,8 @@
 	<select id="selectPage" resultMap="ImageResultMap">
 		SELECT *
 		FROM original_pic
-		WHERE pic_name LIKE #{picName} 
-		LIMIT #{pageNum}, #{pageSize}
+		WHERE pic_name LIKE #{picName}
+		LIMIT #{pageNum} , #{pageSize}
 	</select>
 
 	<!-- 查询符合条件的图片总数 -->
@@ -43,7 +43,8 @@
 
 	<!-- 根据ID删除图片 -->
 	<delete id="deleteById" parameterType="Integer">
-		DELETE FROM original_pic
+		DELETE
+		FROM original_pic
 		WHERE pic_id = #{picId}
 	</delete>
 

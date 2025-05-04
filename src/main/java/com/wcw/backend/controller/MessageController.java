@@ -1,12 +1,10 @@
 package com.wcw.backend.controller;
 
-import com.wcw.backend.entity.UserInfo;
 import com.wcw.backend.service.IMessageService;
 import com.wcw.backend.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,7 +22,7 @@ public class MessageController {
 
 	/**
 	 * 发送消息
-	 * 
+	 *
 	 * @param request 包含消息内容的请求体
 	 */
 	@PostMapping("/sendMessage")
@@ -34,7 +32,7 @@ public class MessageController {
 
 	/**
 	 * 保存数据到Redis
-	 * 
+	 *
 	 * @param request 包含key和value的请求体
 	 */
 	@PostMapping("/saveToRedis")
@@ -44,7 +42,7 @@ public class MessageController {
 
 	/**
 	 * 从Redis获取数据
-	 * 
+	 *
 	 * @param key Redis键
 	 * @return 对应的值
 	 */

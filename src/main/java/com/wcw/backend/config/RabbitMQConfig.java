@@ -13,7 +13,7 @@ public class RabbitMQConfig {
 
 	/**
 	 * 创建一个名为"myQueue"的消息队列
-	 * 
+	 *
 	 * @return 持久化的消息队列实例，服务器重启后队列仍然存在
 	 */
 	@Bean

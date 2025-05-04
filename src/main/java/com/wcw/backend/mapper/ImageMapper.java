@@ -13,27 +13,31 @@ import java.util.List;
 public interface ImageMapper {
 	/**
 	 * 保存图片信息到数据库
+	 *
 	 * @param originalPic 原始图片对象
 	 */
 	void save(OriginalPic originalPic);
 
 	/**
 	 * 查询所有图片信息
+	 *
 	 * @return 图片列表
 	 */
 	List<OriginalPic> findAll();
 
 	/**
 	 * 分页查询图片信息
-	 * @param pageNum 页码偏移量
+	 *
+	 * @param pageNum  页码偏移量
 	 * @param pageSize 每页大小
-	 * @param picName 图片名称（模糊查询条件）
+	 * @param picName  图片名称（模糊查询条件）
 	 * @return 分页的图片列表
 	 */
 	List<OriginalPic> selectPage(Integer pageNum, Integer pageSize, String picName);
 
 	/**
 	 * 获取符合条件的图片总数
+	 *
 	 * @param picName 图片名称（模糊查询条件）
 	 * @return 图片总数
 	 */
@@ -41,6 +45,7 @@ public interface ImageMapper {
 
 	/**
 	 * 根据ID删除图片
+	 *
 	 * @param picId 图片ID
 	 * @return 删除成功返回true，否则返回false
 	 */
@@ -48,6 +53,7 @@ public interface ImageMapper {
 
 	/**
 	 * 根据ID查找图片
+	 *
 	 * @param picId 图片ID
 	 * @return 图片对象
 	 */

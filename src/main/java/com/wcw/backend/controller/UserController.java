@@ -23,7 +23,7 @@ public class UserController {
 
 	/**
 	 * 查询所有用户
-	 * 
+	 *
 	 * @return 用户列表
 	 */
 	@GetMapping("/findAll")
@@ -33,8 +33,8 @@ public class UserController {
 
 	/**
 	 * 分页查询用户
-	 * 
-	 * @param pageNum 页码
+	 *
+	 * @param pageNum  页码
 	 * @param pageSize 每页数量
 	 * @param username 用户名(用于模糊查询)
 	 * @return 分页结果

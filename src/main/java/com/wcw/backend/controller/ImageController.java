@@ -23,7 +23,7 @@ public class ImageController {
 
 	/**
 	 * 手动上传图片
-	 * 
+	 *
 	 * @param requestBody 包含图片URL和名称的请求体
 	 * @return 操作结果
 	 */
@@ -43,7 +43,7 @@ public class ImageController {
 
 	/**
 	 * 查询所有图片
-	 * 
+	 *
 	 * @return 图片列表
 	 */
 	@GetMapping("/findAll")
@@ -53,10 +53,10 @@ public class ImageController {
 
 	/**
 	 * 分页查询图片
-	 * 
-	 * @param pageNum 页码
+	 *
+	 * @param pageNum  页码
 	 * @param pageSize 每页数量
-	 * @param picName 图片名称(用于模糊查询)
+	 * @param picName  图片名称(用于模糊查询)
 	 * @return 分页结果
 	 */
 	@GetMapping("/findPage")
@@ -68,7 +68,7 @@ public class ImageController {
 
 	/**
 	 * 根据ID删除图片
-	 * 
+	 *
 	 * @param picId 图片ID
 	 * @return 操作结果
 	 */

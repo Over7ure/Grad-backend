@@ -1,9 +1,9 @@
 package com.wcw.backend.controller;
 
-import com.wcw.backend.result.Result;
-import com.wcw.backend.service.IValidationService;
 import com.wcw.backend.entity.UserInfo;
 import com.wcw.backend.mapper.UserMapper;
+import com.wcw.backend.result.Result;
+import com.wcw.backend.service.IValidationService;
 import com.wcw.backend.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -28,7 +28,7 @@ public class ValidationController {
 
 	/**
 	 * 用户登录
-	 * 
+	 *
 	 * @param username 用户名
 	 * @param password 密码
 	 * @return 登录结果
@@ -61,8 +61,8 @@ public class ValidationController {
 
 	/**
 	 * 用户注册
-	 * 
-	 * @param email 电子邮箱
+	 *
+	 * @param email    电子邮箱
 	 * @param username 用户名
 	 * @param password 密码
 	 * @return 注册结果

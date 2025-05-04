@@ -1,6 +1,5 @@
 package com.wcw.backend.result;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,12 +14,12 @@ public class Result {
 	 * 响应状态码
 	 */
 	private int code;
-	
+
 	/**
 	 * 响应消息
 	 */
 	private String message;
-	
+
 	/**
 	 * 可选data字段
 	 */

@@ -30,7 +30,8 @@ public class ImageServiceImpl implements IImageService {
 
 	/**
 	 * 上传图片
-	 * @param picUrl 图片的Base64编码字符串
+	 *
+	 * @param picUrl  图片的Base64编码字符串
 	 * @param picName 图片名称
 	 * @return 上传是否成功
 	 */
@@ -77,6 +78,7 @@ public class ImageServiceImpl implements IImageService {
 
 	/**
 	 * 查询所有图片
+	 *
 	 * @return 图片列表
 	 */
 	@Override
@@ -86,9 +88,10 @@ public class ImageServiceImpl implements IImageService {
 
 	/**
 	 * 分页查询图片
-	 * @param pageNum 页码
+	 *
+	 * @param pageNum  页码
 	 * @param pageSize 每页数量
-	 * @param picName 图片名称（模糊查询）
+	 * @param picName  图片名称（模糊查询）
 	 * @return 包含数据和总数的Map
 	 */
 	@Override
@@ -105,6 +108,7 @@ public class ImageServiceImpl implements IImageService {
 
 	/**
 	 * 根据ID删除图片
+	 *
 	 * @param picId 图片ID
 	 * @return 删除是否成功
 	 */
@@ -142,6 +146,7 @@ public class ImageServiceImpl implements IImageService {
 
 	/**
 	 * 处理上传的压缩包
+	 *
 	 * @param file 上传的压缩包文件
 	 * @return 包含处理成功和失败数量的Map
 	 * @throws Exception 处理过程中的异常
@@ -151,24 +156,24 @@ public class ImageServiceImpl implements IImageService {
 		Map<String, Object> result = new HashMap<>();
 		int successCount = 0;
 		int failedCount = 0;
-		
+
 		// 创建临时目录存储解压的文件
 		String tempDirPath = System.getProperty("java.io.tmpdir") + "/archive_extract_" + System.currentTimeMillis();
 		File tempDir = new File(tempDirPath);
 		if (!tempDir.exists() && !tempDir.mkdirs()) {
 			throw new IOException("无法创建临时目录");
 		}
-		
+
 		try {
 			// 将上传的文件保存到临时文件
 			String originalFilename = file.getOriginalFilename();
 			if (originalFilename == null) {
 				throw new IllegalArgumentException("文件名不能为空");
 			}
-			
+
 			File tempFile = new File(tempDir, originalFilename);
 			file.transferTo(tempFile);
-			
+
 			// 解压文件
 			if (originalFilename.toLowerCase().endsWith(".zip")) {
 				unzipFile(tempFile, tempDir);
@@ -177,7 +182,7 @@ public class ImageServiceImpl implements IImageService {
 			} else {
 				throw new IllegalArgumentException("不支持的压缩包格式");
 			}
-			
+
 			// 处理解压后的文件
 			Map<String, Integer> counts = processExtractedFiles(tempDir);
 			successCount = counts.get("success");
@@ -186,14 +191,15 @@ public class ImageServiceImpl implements IImageService {
 			// 清理临时文件和目录
 			deleteDirectory(tempDir);
 		}
-		
+
 		result.put("success", successCount);
 		result.put("failed", failedCount);
 		return result;
 	}
-	
+
 	/**
 	 * 解压ZIP文件
+	 *
 	 * @param zipFile ZIP文件
 	 * @param destDir 目标目录
 	 * @throws IOException IO异常
@@ -202,16 +208,16 @@ public class ImageServiceImpl implements IImageService {
 		try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile))) {
 			ZipEntry zipEntry;
 			byte[] buffer = new byte[1024];
-			
+
 			while ((zipEntry = zis.getNextEntry()) != null) {
 				String fileName = zipEntry.getName();
 				// 忽略__MACOSX目录和隐藏文件
 				if (fileName.startsWith("__MACOSX") || fileName.startsWith(".")) {
 					continue;
 				}
-				
+
 				File newFile = new File(destDir, fileName);
-				
+
 				// 创建目录
 				if (zipEntry.isDirectory()) {
 					if (!newFile.isDirectory() && !newFile.mkdirs()) {
@@ -219,13 +225,13 @@ public class ImageServiceImpl implements IImageService {
 					}
 					continue;
 				}
-				
+
 				// 创建父目录
 				File parent = newFile.getParentFile();
 				if (!parent.isDirectory() && !parent.mkdirs()) {
 					throw new IOException("无法创建目录: " + parent);
 				}
-				
+
 				// 写入文件
 				try (FileOutputStream fos = new FileOutputStream(newFile)) {
 					int len;
@@ -236,9 +242,10 @@ public class ImageServiceImpl implements IImageService {
 			}
 		}
 	}
-	
+
 	/**
 	 * 解压RAR文件, 使用junrar库处理
+	 *
 	 * @param rarFile RAR文件
 	 * @param destDir 目标目录
 	 * @throws Exception 处理异常
@@ -270,9 +277,10 @@ public class ImageServiceImpl implements IImageService {
 			}
 		}
 	}
-	
+
 	/**
 	 * 处理解压后的文件
+	 *
 	 * @param directory 包含解压文件的目录
 	 * @return 包含成功和失败计数的Map
 	 * @throws IOException IO异常
@@ -280,27 +288,27 @@ public class ImageServiceImpl implements IImageService {
 	private Map<String, Integer> processExtractedFiles(File directory) throws IOException {
 		int successCount = 0;
 		int failedCount = 0;
-		
+
 		List<File> files = getAllFiles(directory);
-		
+
 		for (File file : files) {
 			// 检查是否为支持的图片格式
 			String fileName = file.getName().toLowerCase();
-			if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || 
-				fileName.endsWith(".png") || fileName.endsWith(".gif") || 
-				fileName.endsWith(".ico") || fileName.endsWith(".bmp")) {
-				
+			if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") ||
+					fileName.endsWith(".png") || fileName.endsWith(".gif") ||
+					fileName.endsWith(".ico") || fileName.endsWith(".bmp")) {
+
 				try {
 					// 读取图片文件
 					byte[] fileContent = Files.readAllBytes(file.toPath());
-					
+
 					// 获取MIME类型
 					String mimeType = determineMimeType(fileName);
-					
+
 					// 转换为Base64
 					String base64Image = Base64.getEncoder().encodeToString(fileContent);
 					String base64WithPrefix = "data:" + mimeType + ";base64," + base64Image;
-					
+
 					// 调用已有的上传方法
 					if (uploadImage(base64WithPrefix, file.getName())) {
 						successCount++;
@@ -313,15 +321,16 @@ public class ImageServiceImpl implements IImageService {
 				}
 			}
 		}
-		
+
 		Map<String, Integer> result = new HashMap<>();
 		result.put("success", successCount);
 		result.put("failed", failedCount);
 		return result;
 	}
-	
+
 	/**
 	 * 根据文件扩展名确定MIME类型
+	 *
 	 * @param fileName 文件名
 	 * @return MIME类型
 	 */
@@ -339,16 +348,17 @@ public class ImageServiceImpl implements IImageService {
 		}
 		return "application/octet-stream";
 	}
-	
+
 	/**
 	 * 递归获取目录中的所有文件
+	 *
 	 * @param directory 目录
 	 * @return 文件列表
 	 */
 	private List<File> getAllFiles(File directory) {
 		List<File> files = new ArrayList<>();
 		File[] fileList = directory.listFiles();
-		
+
 		if (fileList != null) {
 			for (File file : fileList) {
 				if (file.isDirectory()) {
@@ -358,12 +368,13 @@ public class ImageServiceImpl implements IImageService {
 				}
 			}
 		}
-		
+
 		return files;
 	}
-	
+
 	/**
 	 * 递归删除目录及其内容
+	 *
 	 * @param directory 要删除的目录
 	 */
 	private void deleteDirectory(File directory) {

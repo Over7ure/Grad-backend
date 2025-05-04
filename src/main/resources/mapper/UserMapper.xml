@@ -27,8 +27,8 @@
 	<select id="selectPage" resultMap="UserResultMap">
 		SELECT *
 		FROM user_info
-		WHERE username LIKE #{username} 
-		LIMIT #{pageNum}, #{pageSize}
+		WHERE username LIKE #{username}
+		LIMIT #{pageNum} , #{pageSize}
 	</select>
 
 	<!-- 查询符合条件的用户总数 -->

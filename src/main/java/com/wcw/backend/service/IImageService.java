@@ -13,7 +13,8 @@ import java.util.Map;
 public interface IImageService {
 	/**
 	 * 手动上传图片
-	 * @param picUrl 图片的Base64编码字符串
+	 *
+	 * @param picUrl  图片的Base64编码字符串
 	 * @param pinName 图片名称
 	 * @return 上传是否成功
 	 */
@@ -21,21 +22,24 @@ public interface IImageService {
 
 	/**
 	 * 查询所有图片
+	 *
 	 * @return 图片列表
 	 */
 	List<OriginalPic> findAll();
 
 	/**
 	 * 分页查询图片
-	 * @param pageNum 页码
+	 *
+	 * @param pageNum  页码
 	 * @param pageSize 每页数量
-	 * @param picName 图片名称（模糊查询）
+	 * @param picName  图片名称（模糊查询）
 	 * @return 包含数据和总数的Map
 	 */
 	Map<String, Object> findPage(Integer pageNum, Integer pageSize, String picName);
 
 	/**
 	 * 根据ID删除图片
+	 *
 	 * @param picId 图片ID
 	 * @return 删除是否成功
 	 */
@@ -43,6 +47,7 @@ public interface IImageService {
 
 	/**
 	 * 处理上传的压缩包
+	 *
 	 * @param file 上传的压缩包文件
 	 * @return 包含处理成功和失败数量的Map
 	 * @throws Exception 处理过程中的异常
