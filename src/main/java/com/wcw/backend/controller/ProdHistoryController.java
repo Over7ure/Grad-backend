@@ -27,4 +27,14 @@ public class ProdHistoryController {
 	public List<ProdHistoryData> findAll() {
 		return prodHistoryService.findAll();
 	}
+
+	/**
+	 * 保存或更新当日生产历史数据
+	 * @param prodDate 日期
+	 * @param hasDefect 是否检测到缺陷
+	 */
+	@RequestMapping("/saveOrUpdateToday")
+	public void saveOrUpdateToday(String prodDate, boolean hasDefect) {
+		prodHistoryService.saveOrUpdateToday(prodDate, hasDefect);
+	}
 }

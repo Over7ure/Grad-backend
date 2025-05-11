@@ -14,12 +14,4 @@ public class ProdHistoryData {
 	private Integer prodNum;
 	// 缺陷数量
 	private Integer defectNum;
-	// 针孔缺陷数量
-	private Integer pinNum;
-	// 气泡缺陷数量
-	private Integer bubbleNum;
-	// 划痕缺陷数量
-	private Integer scratchNum;
-	// 锡灰缺陷数量
-	private Integer tinAshNum;
 }

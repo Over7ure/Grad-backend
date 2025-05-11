@@ -26,4 +26,24 @@ public class ProdHistoryServiceImpl implements IProdHistoryService {
 	public List<ProdHistoryData> findAll() {
 		return prodHistoryMapper.findAll();
 	}
+
+	@Override
+	public void saveOrUpdateToday(String prodDate, boolean hasDefect) {
+		ProdHistoryData data = prodHistoryMapper.findByDate(prodDate);
+		if (data == null) {
+			// 新增
+			ProdHistoryData newData = new ProdHistoryData();
+			newData.setProdDate(prodDate);
+			newData.setProdNum(1);
+			newData.setDefectNum(hasDefect ? 1 : 0);
+			prodHistoryMapper.insert(newData);
+		} else {
+			// 更新
+			data.setProdNum(data.getProdNum() + 1);
+			if (hasDefect) {
+				data.setDefectNum(data.getDefectNum() + 1);
+			}
+			prodHistoryMapper.update(data);
+		}
+	}
 }

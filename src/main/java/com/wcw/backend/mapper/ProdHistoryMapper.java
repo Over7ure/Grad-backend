@@ -17,4 +17,23 @@ public interface ProdHistoryMapper {
 	 * @return 生产历史数据
 	 */
 	List<ProdHistoryData> findAll();
+
+	/**
+	 * 根据日期查询生产历史数据
+	 * @param prodDate 日期
+	 * @return 生产历史数据
+	 */
+	ProdHistoryData findByDate(String prodDate);
+
+	/**
+	 * 插入生产历史数据
+	 * @param data 数据
+	 */
+	void insert(ProdHistoryData data);
+
+	/**
+	 * 更新生产历史数据
+	 * @param data 数据
+	 */
+	void update(ProdHistoryData data);
 }

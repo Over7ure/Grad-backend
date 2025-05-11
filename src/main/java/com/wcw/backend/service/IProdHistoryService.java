@@ -15,4 +15,11 @@ public interface IProdHistoryService {
 	 * @return 生产历史数据列表
 	 */
 	List<ProdHistoryData> findAll();
+
+	/**
+	 * 保存或更新当日生产历史数据
+	 * @param prodDate 日期
+	 * @param hasDefect 是否检测到缺陷
+	 */
+	void saveOrUpdateToday(String prodDate, boolean hasDefect);
 }

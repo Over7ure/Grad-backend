@@ -2,6 +2,7 @@ package com.wcw.backend.config;
 
 import com.wcw.backend.util.JwtUtil;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,18 +12,34 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
+	private Set<String> excludeUrlSet = new HashSet<>();
+
+	@Override
+	public void initFilterBean() {
+		FilterConfig filterConfig = getFilterConfig();
+		if (filterConfig != null) {
+			String excludeUrls = filterConfig.getInitParameter("excludeUrls");
+			if (excludeUrls != null) {
+				excludeUrlSet.addAll(Arrays.asList(excludeUrls.split(",")));
+			}
+		}
+	}
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String path = request.getRequestURI();
-		// 登录和注册接口不拦截
-		if ("/api/login".equals(path) || "/api/register".equals(path)) {
+		// 登录、注册和免认证接口不拦截
+		if ("/api/login".equals(path) || "/api/register".equals(path) || excludeUrlSet.contains(path)) {
 			filterChain.doFilter(request, response);
 			return;
 		}

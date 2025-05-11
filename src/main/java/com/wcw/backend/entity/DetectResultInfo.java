@@ -14,10 +14,8 @@ public class DetectResultInfo {
 	private Integer testSn;
 	// 图片ID，关联到原始图片
 	private Integer picId;
-	// 缺陷ID，关联到缺陷类型
-	private Integer defectId;
 	// 模型ID，关联到检测使用的模型
-	private Integer modelId;
+	private Integer weightFileId;
 	// 显示状态，表示检测结果的展示状态
 	private String showStatus;
 	// 检测时间，记录检测的具体时间点

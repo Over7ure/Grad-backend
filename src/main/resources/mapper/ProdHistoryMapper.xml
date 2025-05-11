@@ -9,14 +9,28 @@
 		<id property="prodDate" column="prod_date"/>
 		<result property="prodNum" column="prod_num"/>
 		<result property="defectNum" column="defect_num"/>
-		<result property="pinNum" column="pin_num"/>
-		<result property="bubbleNum" column="bubble_num"/>
-		<result property="scratchNum" column="scratch_num"/>
-		<result property="tinAshNum" column="tin_ash_num"/>
 	</resultMap>
 	<!-- 查询所有生产历史数据 -->
 	<select id="findAll" resultMap="ProdHistoryMap">
 		SELECT *
 		FROM prod_history_data
 	</select>
+
+	<!-- 根据日期查询生产历史数据 -->
+	<select id="findByDate" parameterType="string" resultMap="ProdHistoryMap">
+		SELECT * FROM prod_history_data WHERE prod_date = #{prodDate}
+	</select>
+
+	<!-- 插入生产历史数据 -->
+	<insert id="insert" parameterType="com.wcw.backend.entity.ProdHistoryData">
+		INSERT INTO prod_history_data (prod_date, prod_num, defect_num)
+		VALUES (#{prodDate}, #{prodNum}, #{defectNum})
+	</insert>
+
+	<!-- 更新生产历史数据 -->
+	<update id="update" parameterType="com.wcw.backend.entity.ProdHistoryData">
+		UPDATE prod_history_data
+		SET prod_num = #{prodNum}, defect_num = #{defectNum}
+		WHERE prod_date = #{prodDate}
+	</update>
 </mapper>

@@ -16,6 +16,8 @@ public class WebConfig {
 		registration.setFilter(jwtAuthenticationFilter);
 		registration.addUrlPatterns("/api/*"); // 需要鉴权的接口路径
 		registration.setOrder(1);
+		// 放行图片预览接口
+		registration.addInitParameter("excludeUrls", "/api/image/view");
 		return registration;
 	}
 }
